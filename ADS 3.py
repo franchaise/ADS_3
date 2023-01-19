@@ -9,6 +9,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import describe
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
 
 def readfile(doc, columns, indicator):
     filedata = pd.read_excel(doc, skiprows=3)
@@ -27,3 +30,7 @@ x =WB_DATA[0]
 x_c= x.dropna()
 x_a =x_c.values
 print(x_a)
+
+scaler = StandardScaler()
+scaled_x = scaler.fit_transform(x_a)
+print(scaled_x)
