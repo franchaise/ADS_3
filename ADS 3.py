@@ -108,6 +108,8 @@ plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:,1], s = 10,
 # Add a legend to the plot
 plt.legend()
 # Show the plot
+plt.xlabel('Number of clusters')
+plt.ylabel('Inertia')
 plt.show()
 
 
@@ -128,7 +130,8 @@ plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:,1], s = 50,
 
 
 plt.legend()
-
+plt.xlabel('Number of clusters')
+plt.ylabel('Inertia')
 # Show the plot
 plt.show()
 
@@ -138,9 +141,12 @@ score
 
 
 #Create new dataframes for each clusters
-df_cluster1 = data1.loc[data1['Cluster'] == 0]
-df_cluster2 = data1.loc[data1['Cluster'] == 1]
-df_cluster3 = data1.loc[data1['Cluster'] == 2]
+df_cluster1 = data1.loc[data1['Cluster'] == 0]#cluster 1
+
+
+df_cluster2 = data1.loc[data1['Cluster'] == 1]#cluster 2
+
+df_cluster3 = data1.loc[data1['Cluster'] == 2]#cluster 3
 
 
 #Data Curve Fitting----------------------------------------------
@@ -222,7 +228,7 @@ y_line = model(x_line, a, b, c, d)
 plt.scatter(x_axis, y_axis)
 plt.plot(x_line, y_line, '--', color='black', label='Fitted Model')
 plt.xlabel('Year')
-plt.ylabel('Germany')
+plt.ylabel('Energy Consumption')
 plt.title('CURVE FITTING')
 plt.legend()
 plt.show()
@@ -235,12 +241,20 @@ low, up = err.err_ranges(x_axis, model, popt, sigma)
 print(low, up)
 
 # This line of code creates a scatter plot of the data, a line plot of the fitted model and fills the area between the lower and upper bounds of the error
+ci = 1.96 * np.std(y_axis)/np.sqrt(len(x_axis))
+lower = y_line - ci
+upper = y_line + ci
+
+# This line of code creates a scatter plot of the data, a line plot of the fitted model and fills the area between the lower and upper bounds of the error
 print(curve)
 print(low.shape)
 plt.scatter(x_axis, y_axis)
 plt.plot(x_line, y_line, '--', color='black')
-plt.fill_between(x_axis, low, up, alpha=0.7, color='green')
+plt.fill_between(x_line, lower, upper, alpha=0.7, color='yellow')
+plt.xlabel('Year')
+plt.ylabel('Energy Consumption')
+plt.title('CURVE FITTING')
+plt.legend()
 plt.show()
-
 
 
